@@ -19,7 +19,7 @@ def todayPointIncome():
         result = res_json["result"]
         today_total_point = result["todayTotalPoint"]
         todayDate = result["todayDate"]
-        today_date = datetime.datetime.strptime(todayDate, "%Y-%m-%d").strftime("%Y年%m月%d日")
+        today_date = datetime.datetime.strptime(todayDate, "%Y%m%d").strftime("%Y年%m月%d日")
     else:
         errorMessage = res.json()['error']['message']
         print(errorMessage)
@@ -113,7 +113,7 @@ def todayPointDetail():
         todayDate = result["todayDate"]
         totalRecord = result["pageInfo"]["totalRecord"]
         pointInfos = result["pointInfos"]
-        GlobalVariable.final_result["todayDate"] = todayDate
+        GlobalVariable.final_result["todayDate"] = datetime.datetime.strptime(todayDate, "%Y%m%d").strftime("%Y-%m-%d")
         GlobalVariable.final_result["totalRecord"] = str(totalRecord)
         GlobalVariable.final_result["pointInfos"] = pointInfos
         for info in pointInfos:
@@ -192,7 +192,7 @@ def resolveDeviceIP(DEVICE_IP):
 
 # 检测更新
 def checkForUpdates():
-    remote_address = "https://endpoint.fastgit.org/https://raw.githubusercontent.com/leifengwl/JDRouterPush/main/config.ini"
+    remote_address = "https://raw.githubusercontent.com/leifengwl/JDRouterPush/main/config.ini"
     headers = {
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.104 Safari/537.36"
     }
